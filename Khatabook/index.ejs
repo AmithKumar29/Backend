@@ -1,46 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/public/css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hisaab Kitaab</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+    rel="stylesheet"
+  />
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<body class="bg-gray-50 text-gray-800">
 
-<body>
-    <main class="w-full h-screen bg-zinc-100 font-['Helvetica']">
-        <nav class="flex px-10 justify-between py-5">
-            <h3 class="text-2xl tracking-tight">Khaatabook</h3>
-            <div class="navlinks flex gap-5">
-                <a class="tracking-tight" href="/">Home</a>
-                <a class="tracking-tight" href="/create">Create New Hisaab</a>
-            </div>
-        </nav>
-        <div class="px-10 hisaabs">
-            <h3 class="capitalize text-2xl font-medium mb-5 mt-10 tracking-tight">All hisaab kitaab</h3>
+  <!-- Navbar -->
+  <nav class="bg-white p-4 text-black shadow-md">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <a href="/" class="text-2xl font-bold tracking-tight">
+        Khatabook
+      </a>
+      <div class="space-x-4 font-medium">
+        <a href="/create" class="hover:underline">Create</a>
+        <a href="/" class="hover:underline">Home</a>
+      </div>
+    </div>
+  </nav>
 
-            <div class="hisaab w-fit items-center py-3 mb-3 px-5 gap-20 bg-blue-500 flex justify-between rounded-md">
-                <div class="flex gap-4 text-white items-center">
-                    <h3 class="text-2xl">
-                        Hello
-                    </h3>
-                    <a href="/hisaab"><i
-                            class="w-6 h-6 text-blue-500 flex items-center justify-center bg-white rounded-full ri-arrow-right-line"></i></a>
-                </div>
-                <div class="flex gap-3 items-center">
-                    <a href="/edit"><i class="text-white ri-pencil-line"></i></a>
-                    <a href="/delete"><i
-                            class="w-6 h-6 text-red-500 flex items-center justify-center bg-white rounded-full ri-delete-bin-line"></i></a>
-                </div>
-            </div>
-            <h3 class="text-zinc-500">(only show if) nothing to show, create hisaabs to see something.</h3>
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-4 py-10">
+    <h3 class="capitalize text-2xl font-medium mb-8 tracking-tight">
+      All Your tasks
+    </h3>
 
+    <% if(files.length > 0) { %>
+      <% files.forEach(function(file) { %>
+        <div
+          class="flex justify-between items-center bg-white rounded-lg shadow-md px-5 py-3 mb-4 hover:shadow-lg transition-shadow duration-200"
+        >
+          <!-- Left Side -->
+          <div class="flex items-center gap-4">
+            <span class="text-blue-600 text-lg font-semibold">
+              <%= file.split(".")[0] %>
+            </span>
+            <a href="/hisaab/<%= file %>"
+              class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
+            >
+              <i class="ri-arrow-right-line"></i>
+            </a>
+          </div>
 
+          <!-- Right Side -->
+          <div class="flex items-center gap-3">
+            <a href="/edit/<%= file %>"
+              class="text-blue-500 hover:text-blue-700"
+            >
+              <i class="ri-pencil-line text-lg"></i>
+            </a>
+            <a href="/delete/<%= file %>"
+              class="w-8 h-8 flex items-center justify-center bg-red-100 text-red-500 rounded-full hover:bg-red-200 transition-colors"
+            >
+              <i class="ri-delete-bin-line"></i>
+            </a>
+          </div>
         </div>
-    </main>
-</body>
+      <% }) %>
+    <% } else { %>
+      <h3 class="text-zinc-500">
+        Currently nothing to show, create hisaabs to see something.
+      </h3>
+    <% } %>
+  </main>
 
+</body>
 </html>
